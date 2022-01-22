@@ -1,0 +1,285 @@
+---
+title: "R Notebook for Population Projection: Lab 5 (In-class)"
+output: html_notebook
+---
+
+# Overview
+
+In this in-class lab our goal is to project a population with 3 age-groups using matrix multiplication. We are trying to learn several things:
+
+1. How matrix multiplication takes account of births and deaths in an age-structured pop
+
+2. That constant age-specific rates lead to a steady state population age pyramid ("stable" population) 
+
+3. "Stable" populations have constant exponential growth rates 
+
+
+
+# 0. Population projection as a set of transitions
+
+Let's draw on the board the transitions between 
+
+* young (aged 0-19)
+* middle aged (aged 20-39)
+* old (aged 40-59)
+(we pretend now one survives to 60 and beyond :( )
+
+from the year 2000 to the year 2020.
+
+We should now have a "connected graph", showing us the transitions between states.
+
+Let's put the same information in an "Input-Output" table, with input-states on the columns, and output-states on the rows.
+                    
+             | Young (in) | Middle (in) | Old (in) |
+-----------------------------------------------------
+Young (out)  |            |             |          |
+Middle (out) |            |             |          |
+Old (out)    |            |             |          |
+
+
+* Which of these table entries could be positive?
+* Which will be "structural" zeros?
+
+
+
+
+# 1. Matrix equation for population projection
+
+$$
+{\bf A} \cdot {\bf P}(t) = {\bf P}(t +n)
+$$
+
+where
+* $n$ is projection step length
+* $A$ is the projection matrix
+* $P$ is a column vector of population by age group
+
+Writing out the matrices,
+
+$$
+\begin{pmatrix} F_I & F_{II} & F_{III} \\
+S_{I} & 0 & 0 \\ 
+0 & S_{II} & 0
+\end{pmatrix}
+\begin{pmatrix}
+P_{1}(t) \\ P_{II}(t) \\ P_{III}(t)
+\end{pmatrix}
+= 
+\begin{pmatrix}
+P_{1}(t+n) \\ P_{II}(t+n) \\ P_{III}(t+n)
+\end{pmatrix}
+$$
+
+Let's multiply out on the board, and compare to our "connected graph" of the transitions.
+
+Let's make sure we understand that our matrix multiplication is doing what we want.
+
+# 2. An example
+
+Let's take a specific example of a projection matrix. 
+
+$$
+{\bf A} = 
+\begin{pmatrix} .6 & .8 & 0 \\
+.9 & 0 & 0 \\ 
+0 & .7 & 0
+\end{pmatrix}
+$$
+Let's start with a young'ish population with more young than old (the youngest age group is the upper-most element).
+
+$$
+{\bf P}(0) = 
+\begin{pmatrix}
+50 \\ 30 \\ 20
+\end{pmatrix}
+$$
+Let's answer the following questions (first by hand, ..., and then we can check with 'R')
+
+> A. What is population after one projection step, $P("1")$?
+
+> B. What is ratio of total population size at "1" to time "0"? 
+
+> C. What is the annual population growth rate from "0" to "1" if we assume a projection step is 20 years?
+
+
+## A. 1 projection step
+```{r}
+
+A = matrix(c(.6, .8, 0,
+             .9, 0, 0,
+             0, .7, 0), ncol = 3, byrow = T)
+P0 = matrix(c(50,
+             30,
+             20), ncol = 1, byrow = T)
+
+P1 = A %*% P0  # '%*%' means matrix multiplication
+print(P1)
+
+```
+
+## B. Ratio of population sizes
+```{r}
+P0.total = sum(P0)
+P1.total = sum(P1)
+my.ratio = P1.total / P0.total
+print(my.ratio)
+```
+## C. Annual growth rate
+```{r}
+R.0.to.1 = log(P1.total/P0.total)/20
+print(R.0.to.1)
+```
+
+## D. Age-structure
+
+Did the age-structure (proportion in each age group) change when we projected $P_0$ forward in time?
+
+```{r}
+## let's use the notation "little p" for proportions
+p0 = P0/sum(P0)
+p1 = P1/sum(P1)
+print(cbind(P0, p0, P1, p1))
+```
+
+Is there an age structure that we can project that will not change? Let's try
+
+$$
+{\bf P}^\prime(0) = 
+\begin{pmatrix}
+45.7 \\ 34.3 \\ 20
+\end{pmatrix}
+$$
+
+```{r}
+P0.prime = c(45.7, 34.2, 20)
+P1.prime = A %*% P0.prime  # '%*%' means matrix multiplication
+P1.prime = as.vector(P1.prime)
+p0.prime = P0.prime/sum(P0.prime)
+p1.prime = P1.prime/sum(P1.prime)
+
+out <- round(cbind(P0.prime, p0.prime, P1.prime,  p1.prime),3)
+print(out)
+```
+Do proportions change?
+
+Let's visualize
+```{r}
+plot(p0.prime, type = "b", col = "blue", lwd = 2)
+lines(p1.prime, lty = 2, col = "red", lwd = 4)
+title("Proportions in each age group, before and after projection")
+legend("topright", legend = c("p.prime(0)", "p.prime(1)"), col = c("blue", "red"), lwd = c(2, 4))
+```
+
+
+
+# 3. Longer-term projection
+
+Let's say that demographic rates stay the same, and so the projection matrix stays the same. What happens in the long-term to 
+* the rate of population growth?
+* the age structure?
+
+We can use the computer to project a longer time, say 10 steps.
+
+```{r}
+
+## approach 1: repeated multiplication
+
+P1 = A %*% P0
+P2 = A %*% P1
+# etc .....
+```
+```{r}
+## approach 2: Iteration
+P.mat = matrix(NA, nrow = 3, ncol = 10+1) # create an empty pop matrix
+P.mat[,1] = P0 # initialize by putting starting population in first column
+for (i in 1:10) # loop
+{
+  P.mat[,i+1] = A %*% P.mat[,i] #result goes in i+1 column
+}
+
+## let's plot the results
+matplot(1:11, t(P.mat), type = "o", main = "Age groups, regular scale")
+```
+Looks like exponential growth. We can check if we get straight lines in log-scale
+```{r}
+matplot(1:11, t(P.mat), log = "y", type = "o", main = "Age groups, log scale")
+```
+## What is the "stable" growth rate?
+
+Let's plot the total population for each time period
+```{r}
+P.total.vec = NULL
+for (i in 1:11)
+  P.total.vec[i] = sum(P.mat[,i])
+plot(1:11, P.total.vec)
+```
+Now, let's calculate exponential growth rate and plot
+```{r}
+R.vec = diff(log(P.total.vec))/ 20
+plot(R.vec, type = "b")
+abline(h = log(eigen(A)$val[1])/20, col = "green")
+```
+and print out
+```{r}
+print(round(R.vec, 3)) ## looks like long term growth rate is about .9 percent
+```
+
+## What happens to the age stucture?
+
+Let's do an "animated" population pyramid
+```{r}
+for (i in 1:10)
+  barplot(P.mat[,i], main = paste("step", i), names.arg = c("y", "m", "o"), horiz = T)
+```
+
+# 4. Conclusions:
+
+> 1. Population projection with a constant set of demographic rates leads to constant exponential growth
+
+> 2. The age-structure settles down to a steady state, which we call the "stable age structure"
+
+We now close R-studio and 
+
+* Review everything using continuous time and an analytical approach
+
+* Look at the stable age structures implied by real demographic rates (in an App)
+
+http://shiny.demog.berkeley.edu/josh/stable/
+
+# 5. Exercise for self study
+
+There is no lab to turn in for this week. Instead, we are providing you with some self-study questions. There are hints to be able to check your answers. You should also feel free to post questions (and answers) on Piazza in order to see if you are doing this right.
+
+Reduce fertility by subtracting 0.3 from both elements of the first row of the projection matrix A so that
+
+$$
+{\bf A^\prime} = 
+\begin{pmatrix} .6 - .3 & .8 - .3 & 0 \\
+.9 & 0 & 0 \\ 
+0 & .7 & 0
+\end{pmatrix}
+= 
+\begin{pmatrix} .3 & .5 & 0 \\
+.9 & 0 & 0 \\ 
+0 & .7 & 0
+\end{pmatrix}
+
+$$
+a. Find the stable age structure of $A^\prime$ by projecting any starting population about 10 time steps forward.
+
+```{r}
+A.prime = A
+A.prime[1,1] = A[1,1] - .3
+A.prime[1,2] = A[1,2] - .3
+```
+
+(Answer check: the proportion in the 1st age group should be close to 33.6% )
+
+b. Find the stable exponential growth rate, assuming that 20 years separate each projection step.
+
+(Answer check: the growth rate should be close to -0.9% )
+
+c. Compare the age structure of the stable population generated by $A^\prime$ to that generated by $A$.
+
+(Answer check: the age structure of the lower fertility population should be older )
+

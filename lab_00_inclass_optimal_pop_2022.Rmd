@@ -1,0 +1,148 @@
+---
+title: "In-class Activity : Optimal Population with 'Overhead'"
+output: html_notebook
+author: "Joshua R. Goldstein, Economic Demography Econ/Demog c175"
+---
+
+Preliminary congratulations! You successfully navigated this far, opened Rstudio
+and found this in-class exercise!
+
+
+# Instructions:
+
+1. Choose one person in your breakout room to run the RStudio session. If you can't
+decide who, do something reverse alphabetical. The others will help this person.
+
+2. Work your way through the exercise together and write down your answers to the
+questions on a piece of paper, e.g., "Q1: A".
+
+3. Have fun. Don't stress if you don't understand everything. 
+
+4. When we regroup (if we have time today), we'll go through the answers and discuss
+
+# Part 1: Diminishing Marginal Returns
+
+The first part of this exercise will be to look at the case of
+marginal returns that are diminishing from the beginning (rather
+than rising and then falling in many of Sauvy's examples)
+
+Here's our set up: click the green arrow to run the whole chunk. Or run it line
+by line using Command-Enter (on a mac).
+
+```{r}
+## (1) population sizes from 1 to 50
+N = 1:50
+print(N)
+## (2) marginal product that is declining (in this case exponentially at rate "k")
+k = .03
+mp <- exp(-k * N)
+print(mp)
+## (3) total product, using the fancy cumsum() function, try cumsum(1:3) and you should get 1, 3, 6
+tp = cumsum(mp)
+## (4) average product
+ap = tp/N
+```
+
+Let's look at what we've done using plots
+
+```{r}
+par(mfrow = c(2,2)) ## this creates a 2x2 grid of sub-plots
+plot(x = N, y = mp, main = "Marginal product")
+plot(x = N, y = tp, main = "Total Product")
+plot(x = N, y = ap, main = "Average Product")
+```
+
+
+Q1: is marginal product really decreasing?
+A. Yes
+B. No
+Hint: You should be able to see in the figure.
+
+Q2: For population sizes bigger than one, what is the relationship
+    between marginal product and average product?
+A. They are equal
+B. MP is bigger
+C. AP is bigger
+Hint: If MP is going down, as we go from 1 to 2 people, say from 1
+to .8, what will AP be for 2 people?
+(Note: Your answer should be true when MP is declining, but it will
+not hold generally, as we saw in the slides and in the reading.)
+
+Q3. What population size maximizes average product?
+A. 1
+B. 50
+C. 10
+D. about 15, but hard to see exactly on graph
+
+## Part 2: Overhead
+
+Now let's consider the effect of fixed costs or "overhead", say due
+to a population paying "tribute" to another population, or
+maintaining a certain size military, or maintaining infrastructure.
+
+Let's consider the case wheen fixed cost = 2.
+
+```{r}
+overhead = 2
+tp.prime = tp - overhead ## we substract overhead to get Total Product available for population members
+ap.prime = tp.prime/N ## and recalculate Average Product
+
+## now we plot the original (without overhead numbers) together with the
+## new numbers (with overhead), which end in ".prime"
+par(mfrow = c(2,2))
+plot(x = N, y = mp, ylim = c(0, 1))  ## ylim here shows us the plot along the y-axis from 0 to 1
+title("Marginal product")
+plot(N, tp, ylim = c(0, max(tp))) ## here ylim shows us the plot from 0 to the maximum value
+title("Total product, \n solid line shows with overhead")
+lines(N, tp.prime) ## KEY: lines() adds a line to existing plot, in this case for tp.prime
+plot(N, ap, ylim = c(0, 1)) ## and now same for ap
+lines(N, ap.prime)
+title("Average product, \n solid line shows with overhead")
+```
+
+
+Q3: What is tp.prime when N = 1
+A. Less than zero
+B. Negative
+C. A bit awkward to define
+D. All of the above
+Hint: Not a really clear answer here, so I would choose "D"
+
+Q4: What population size maximizes the "economic optimum" defined by Sauvy?
+A. 1
+B. 50
+C. 10
+D. about 15, but hard to see exactly on graph
+Hint: The economic optimum maximizes average product
+
+
+Let's get R to tell us what the maximum. Don't worry about the
+programming. Just run the code and see the result
+
+```{r}
+par(mfrow = c(2,2))
+plot(x = N, y = mp, ylim = c(0, 1))  ## ylim here shows us the plot along the y-axis from 0 to 1
+title("Marginal product")
+plot(N, tp, ylim = c(0, max(tp))) ## here ylim shows us the plot from 0 to the maximum value
+title("Total product, \n solid line shows with overhead")
+lines(N, tp.prime) ## KEY: lines() adds a line to existing plot, in this case for tp.prime
+plot(N, ap, ylim = c(0, 1)) ## and now same for ap
+lines(N, ap.prime)
+title("Average product, \n solid line shows with overhead")
+## add a line at the max with a label ont he axis
+w = which.max(ap.prime)
+abline(v = N[w], lty = 2, col = "red")
+axis(side = 1, at = N[w], col = "red", col.axis = "red", font = 4)
+```
+Does the result match your answer to Q4?
+
+
+Q5. What would happen if to economic optimum if we _increased_ overhead? Discuss in your group.
+
+Q6. What would be the impact of overhead on the power optimum? Discuss in your group.
+
+
+Congratulations! You've finished our first in-class lab! (If you didn't get this far
+or if you had trouble with Rstudio or anything else, do lab_01_world.Rmd, which offers
+more explanation and hand-holding for the computing, and then come back and see if 
+you can finish the in-class lab.)
