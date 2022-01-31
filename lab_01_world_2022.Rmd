@@ -1,6 +1,8 @@
 ---
-title: "Econ/Demog C175 Lab 1: World Population Growth"
-output: html_notebook
+title: 'Econ/Demog C175 Lab 1: World Population Growth'
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 # Overview
@@ -60,6 +62,7 @@ The output of a chunk is only shown when you tell it to be. For example,
 x <- 3
 print(x)
 y <- 4
+print(y)
 ## note: we don't tell R to show us the value of "y"
 z <- 5
 print(z)
@@ -113,7 +116,7 @@ N.1850 <- 1262 # these are millions
 ## Now modify the code below to give the right answer. (Hint: you need
 ## to rename the variables N.2000 and N.1900 and change the dates
 ## "2000" and "1900".)
-R.1850.to.1900 <- ( log(N.2000) - log(N.1900) ) / (2000 - 1900)
+R.1850.to.1900 <- ( log(N.1900) - log(N.1850) ) / (1900 - 1850)
 print( R.1850.to.1900 )
 ```
 
@@ -245,7 +248,7 @@ https://courses.demog.berkeley.edu/goldstein175/)
 1. [Multiple choice] Which of the following descriptions is best for
    the history of human population growth?
 
-A. Constant exponential growth at a rate slighly larger than zero.
+A. Constant exponential growth at a rate slightly larger than zero.
 
 B. Thousands of years of near zero growth, followed by centuries of
 accelerating growth, with a recent slowing of growth.
@@ -255,6 +258,7 @@ time increase in growth rates.
 
 D.  Alternating lengthy periods of positive and negative growth.
 
+ANSWER: **B**
 
 2. [A numerical answer] How large would the world population be today
    if annual growth rates had always been .0005 larger for the last
@@ -279,17 +283,43 @@ in the growth rate by about log(1.015/1.00)/30 = .0005. So, the
 calculation we just did tells us what would have happened to the human
 population if fertility rates had always been just slightly, only 1.5
 percent, higher.
+  
+ANSWER: 
+$N(t) = N(0) \cdot e^{Rt} \cdot e^{dt}$
+$N(t) = N(0) \cdot e^{(R + d)t}$
+$N(t) = N(0) \cdot e^{10000 \cdot 0.0005}$
+$N(t) = 7300000000 \cdot e^{10000 \cdot 0.0005}$
 
+```{r}
+print(exp(10000 * 0.0005))
+print(exp(10000 * 0.0005) * 7300000000)
+```
+Population is 148.4132X times larger, or roughly 1.083416e+12 people.
 
 3. [A numerical answer] How large would the world population in 2115
    be if current exponential growth rates continue? Use 7.3 billion as
    the population size in 2015 and assume $R = 0.01. You can do this
    calculation however you choose (with R, by hand with a calculator,
    or any other way.)
+   
+ANSWER: 
+$N(t) = N(0) \cdot e^{Rt} \cdot e^{dt}$
+$N(t) = N(0) \cdot e^{(R + d)t}$
+$N(t) = N(0) \cdot e^{100 \cdot 0.01}$
+$N(t) = 7300000000 \cdot e^{100 \cdot 0.01}$
+
+```{r}
+print(exp(100 * 0.01) * 7300000000)
+```
+19843457348 people.
 
 5. [A short answer.] Do you think this estimate of the world
    population in 2115 is likely to be too high or too low? Explain
    your reasoning in a sentence.
+
+The estimate is probably too high, because world population growth rate has slowed down.
+The new population is 2.71 times larger and doesn't rationally match up. Plus slower growth rates
+generally means lower exponential growth rates as well. The reference taken is not appropriate in the calcuations.
 
 6. [Optimum Population Exercise] Imagine there's an island that can
    only sustain a few people. The marginal product starts at 5 units
@@ -311,17 +341,18 @@ percent, higher.
 	| Population Size | 1 | 2  | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
   |-----------------|---|----|---|---|---|---|---|---|---|----|
 	| Marginal Product| 5 | 4  | 3 | 2 | 1 | 0 | 0 | 0 | 0 | 0  |
-	| Average Product | 5 | 4.5| 4 |   |   |   |   |   |   |    |
+	| Average Product | 5 | 4.5| 4 | 3.5 | 3 | 2.5 | 2.14 | 1.875 | 1.67 |  1.5  |
 
    (b) What size population gives Sauvy's economic optimum?
-	
+	 1, since Sauvy's optimum is when marginal product is at its peak.
    (c) What size population gives Sauvy's power optimum?
-	
+	 4, subsistence level is 2 according to the problem, so the population size is 4 when that is reached in the marginal product.
    (d) What size population is the "maximum" sustainable population?
-	
+	 7, since it is when the average product is equal to subsistence level 2, which 2.14 is the closest.
 
 7. [non-graded] About how much time (in hours and minutes) did it take you to complete this lab?
 
+1 hour
 
 Congratulations! You have completed Lab 1.
 
