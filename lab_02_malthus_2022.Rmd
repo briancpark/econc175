@@ -1,6 +1,9 @@
 ---
-title: "Econ/Demog C175 Lab 2: Malthus in Sweden"
-output: html_notebook
+title: 'Econ/Demog C175 Lab 2: Malthus in Sweden'
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 ```{r}
@@ -103,7 +106,7 @@ D.  about 20 million
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.1 = NA
+answer1.1 = 'C'
 quiz.check(answer1.1)
 ```
 
@@ -131,7 +134,7 @@ D.  0.005 percent.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.2 = NA
+answer1.2 = 'C'
 quiz.check(answer1.2)
 ```
 
@@ -151,7 +154,7 @@ C.  In 1773
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.3 = NA
+answer1.3 = 'C'
 quiz.check(answer1.3)
 ```
 
@@ -173,7 +176,7 @@ C.  In about 1773
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.4 = NA
+answer1.4 = 'C'
 quiz.check(answer1.4)
 ```
 
@@ -182,11 +185,12 @@ quiz.check(answer1.4)
 # Part 2: Time trends in crude rates (per capita births and deaths)
 
 Let's get the births and deaths on a per capita basis. Demographers
-call these crude rates. ("Crude" because we don't refine the
+call these crude 
+rates. ("Crude" because we don't refine the
 population at risk -- for example, we include women and men in the
 denominator of the birth rate.)
 
-```{r get.rates, fig.height=5}
+```{r get-rates, fig.height=5}
 cbr = B/N                               # crude birth rate
 cdr = D/N                               # crude death rate
 par(mfrow = c(2,1))                     # two panels in one plot
@@ -202,7 +206,7 @@ B.  Quite different from the counts
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer2.1 = NA
+answer2.1 = 'B'
 quiz.check(answer2.1)
 ```
 
@@ -216,7 +220,7 @@ C.  In 1773, the same year as the peak number of deaths
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer2.2 = NA
+answer2.2 = 'C'
 quiz.check(answer2.2)
 ```
 
@@ -230,7 +234,7 @@ C.  The borders of Sweden changed.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer2.3 = NA
+answer2.3 = 'B'
 quiz.check(answer2.3)
 ```
 
@@ -263,7 +267,7 @@ D.  As birth rates go down, death rates go up.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer3.1 = NA
+answer3.1 = 'D'
 quiz.check(answer3.1)
 ```
 
@@ -292,7 +296,7 @@ Q3.2 Which of the patterns in Q3.1 (A,B,C,or,D) does this match most closely?
 
 ```{r}
 ##  "Replace the 'NA' with your answer (e.g., 'A' in quotes)"
-answer3.2 = NA
+answer3.2 = 'D'
 quiz.check(answer3.2)
 ```
 
@@ -305,7 +309,7 @@ B. No
 
 ```{r}
 ##  "Replace the 'NA' with your answer (e.g., 'A' in quotes)"
-answer3.3 = NA
+answer3.3 = 'A'
 quiz.check(answer3.3)
 ```
 
@@ -317,108 +321,73 @@ for the following time periods.
 1801-1850
 ```{r}
 ## Modify the code we used for 1751 to 100 appropriately.
-malthus.plot.fun(from.year = 1751, to.year = 1800)
+malthus.plot.fun(from.year = 1801, to.year = 1850)
 ```
 1851-1900
 ```{r}
 ## Modify the code we used for 1751 to 100 appropriately.
-malthus.plot.fun(from.year = 1751, to.year = 1800)
+malthus.plot.fun(from.year = 1851, to.year = 1900)
 ```
 1901-2014
 ```{r}
 ## Modify the code we used for 1751 to 100 appropriately.
-malthus.plot.fun(from.year = 1751, to.year = 1800)
+malthus.plot.fun(from.year = 1901, to.year = 2014)
 ```
 
 # Part 4: Lab write up. Please limit each answer to 50 words or less.
 
-> 1. Turn in your plot of the relationship between birth and death
->    rates from 1801-1850.  (Note: to save a graph from your RStudio
->    notebook, right click on it with your mouse and "Save image as
->    ...")
+> 1.  Turn in your plot of the relationship between birth and death rates from 1801-1850. (Note: to save a graph from your RStudio notebook, right click on it with your mouse and "Save image as ...")
 
-> Completely optional: for those familiar with R, you can add your
-> name to the plot using the text() function in R. Try adding it in
-> the lower right of the plot.
+> Completely optional: for those familiar with R, you can add your name to the plot using the text() function in R. Try adding it in the lower right of the plot.
 
-> 2. In which of the periods you explored above does the Malthusian
->    relationship first break down? What is your basis for judging?
->    What happens to the _time trends_ in birth and death rates that
->    makes the Malthusian relationship go away?
+```{r}
+malthus.plot.fun(from.year = 1801, to.year = 1850)
+```
+> 2.  In which of the periods you explored above does the Malthusian relationship first break down? What is your basis for judging? What happens to the *time trends* in birth and death rates that makes the Malthusian relationship go away?
 
-> 3. What does Malthus say is the main determinant of birth rates in
->    *Norway*? (Hint: see II.I.3 and subsequent paragraphs in the
->    reading). Would this suggest that births would fall in the *same*
->    year as deaths would rise, or a year or two after?
+1851 to 1900. This is purely based on observing the correlation coefficient. In 1801-1850, the correlation is -0.21, following Mathusian theory. But as years progress, such as 1851-1900, that coeffcient is 0.55, which is positive. That means as time passes, the birth rate is decreasing while death rate is increasing.
+
+> 3.  What does Malthus say is the main determinant of birth rates in *Norway*? (Hint: see II.I.3 and subsequent paragraphs in the reading). Would this suggest that births would fall in the *same* year as deaths would rise, or a year or two after?
+
+Mathus states that the main determinant of birth rates in Norwary is the rate of marriage. Because of the restriction imposed on marriage, such as proof of ability to support a family, birth rate is tightly correlated with the marriage rate. 
 
 > Questions 4 and 5: Ireland and the Potato
 
-> Potatoes are relatively easy to grow and can be stored year-round to
-> provide a nutritious source of food even in wintertime. In the late
-> 18th century, the introduction of the potato as a staple crop
-> changed the agricultural economy of Ireland by increasing the amount
-> of food that farmers could produce and store. In Malthusian terms,
-> this can be represented as an increase in the wage at every
-> population size – a shift in the wage curve. (If it’s helpful, think
-> of “wage” as calories – at a given population size, the land can now
-> provide more calories per person.)
+> Potatoes are relatively easy to grow and can be stored year-round to provide a nutritious source of food even in wintertime. In the late 18th century, the introduction of the potato as a staple crop changed the agricultural economy of Ireland by increasing the amount of food that farmers could produce and store. In Malthusian terms, this can be represented as an increase in the wage at every population size -- a shift in the wage curve. (If it's helpful, think of "wage" as calories -- at a given population size, the land can now provide more calories per person.)
 
-> In the Malthus app found at
-> http://shiny.demog.berkeley.edu/josh/new_malthus/, we can simulate
-> this by moving the wage level from its default of 1 to a higher
-> level, such as 1.18. Do this, and then click “play” (small blue
-> triangle at the bottom of the page). Note that in the app, the
-> “short term” consequences of a shift begin at the vertical dotted
-> line at time zero. Use the simulation to answer the following
-> questions:
+> In the Malthus app found at <http://shiny.demog.berkeley.edu/josh/new_malthus/>, we can simulate this by moving the wage level from its default of 1 to a higher level, such as 1.18. Do this, and then click "play" (small blue triangle at the bottom of the page). Note that in the app, the "short term" consequences of a shift begin at the vertical dotted line at time zero. Use the simulation to answer the following questions:
 
-> 4. Describe in words what happens in the *short term* as a result of
->    the introduction of the potato. What happens to wages immediately
->    after the potato is introduced? What happens to birth and death
->    rates? (Describe the direction of change – you don’t have to give
->    precise numbers.)
-	
-> 5. According to Malthus, in the long term, should the population of
->    Ireland return to its initial size? Why or why not?
+> 4.  Describe in words what happens in the *short term* as a result of the introduction of the potato. What happens to wages immediately after the potato is introduced? What happens to birth and death rates? (Describe the direction of change -- you don't have to give precise numbers.)
 
+Birth rate increase, death rate decrease, and wages increase.
+> 5.  According to Malthus, in the long term, should the population of Ireland return to its initial size? Why or why not?
+
+No, the population of Ireland will actually grow to a new asymptotic maximum. The shift of economy with new wage allows Ireland to grow in population, while supporting the same wage when the population has reached its maximum. 
 > Questions 6 to 8: pen-and-paper questions
-	
-> 6. On a separate sheet of paper, draw your own Malthusian graph
->    system. (We recommend drawing by hand.) The top graph should show
->    birth and death rates as a function of wages; the bottom graph
->    should show population size as a function of wages. Label all of
->    the axes and mark the equilibrium state on both graphs by marking
->    b*, d*, w*, and N* (equilibrium birth rate, death rate, wage
->    rate, and population size) on the appropriate axes.
 
-> 7. Imagine that marriage norms change and people start getting
->    married at later ages and that this results in a lower birth rate at
->    every wage level. Show this change on your graph by drawing a
->    second, dotted, birth rate line. Mark the new equilibria as b’,
->    d’, w’, and P’. Describe in words what happened to the
->    equilibrium wage level and population size.
+> 6.  On a separate sheet of paper, draw your own Malthusian graph system. (We recommend drawing by hand.) The top graph should show birth and death rates as a function of wages; the bottom graph should show population size as a function of wages. Label all of the axes and mark the equilibrium state on both graphs by marking b*, d*, w*, and N* (equilibrium birth rate, death rate, wage rate, and population size) on the appropriate axes.
 
-> (Optional: check your pen-and-paper answer of 7 using the Malthus
-> App.)
+![](malthus.jpg)
 
+> 7.  Imagine that marriage norms change and people start getting married at later ages and that this results in a lower birth rate at every wage level. Show this change on your graph by drawing a second, dotted, birth rate line. Mark the new equilibria as b', d', w', and P'. Describe in words what happened to the equilibrium wage level and population size.
 
-> 8. Imagine that a new group of immigrants arrives. Their
->    technologies and social behaviors are identical to the
->    natives. Describe in words what affect this would have. Would it
->    cause a curve to shift, or a temporary move along one of the
->    curves? Which curve, and in which direction would the shift or
->    move be?
+> (Optional: check your pen-and-paper answer of 7 using the Malthus App.)
 
-> 9. Review questions on optimum population: from last week: 
-> a.  What would happen to optimum population size from the point of
->     view of Sauvy's economic optimum if overhead (e.g., tribute
->     paid to outsiders) were increased? 
-> b.  True or false, explain in one sentence. The amount of overhead
->     has no impact on Sauvy's power optimum.
+![](malthus2.jpg)
+> 8.  Imagine that a new group of immigrants arrives. Their technologies and social behaviors are identical to the natives. Describe in words what affect this would have. Would it cause a curve to shift, or a temporary move along one of the curves? Which curve, and in which direction would the shift or move be?
 
-> 10. [non-graded] About how many hours did it take you to complete this lab?
+Temporary move upward (to the left) for wage in the population vs wage curve. Then with decreased wages, the birth rate would also drop with increase of death rates, shifting the equilibrium to the left. 
+> 9.  Review questions on optimum population: from last week:
+>
+> ```{=html}
+> <!-- -->
+> ```
+> a.  What would happen to optimum population size from the point of view of Sauvy's economic optimum if overhead (e.g., tribute paid to outsiders) were increased?
+> b.  True or false, explain in one sentence. The amount of overhead has no impact on Sauvy's power optimum.
 
+> 10. \[non-graded\] About how many hours did it take you to complete this lab?
 
+1 hour
 Congratulations! You have completed Lab 2.
 
 
@@ -465,7 +434,7 @@ s = year %in% 1901:1950
 plot(db[s], dd[s], type = 'n')
 text(db[s], dd[s], year[s])
 title(round(cor(db[s], dd[s]), 2))
-````
+```
 
 * Look at other countries, either in Human Mortality Database, for
   which there may be other countries with 19th century data, or
