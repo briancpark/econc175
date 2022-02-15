@@ -1,6 +1,8 @@
 ---
-title: "Econ/Demog C175 Lab 3: Solow model analysis"
-output: html_notebook
+title: 'Econ/Demog C175 Lab 3: Solow model analysis'
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 ```{r}
@@ -77,10 +79,33 @@ your numerical answer.)
 
 a) What is the steady-state level of capital per worker?
 
+```{r}
+k <- (20.0 / (1 + 4)) ^ (1 / (1 - 0.4))
+k
+```
+
+$$
+\left(20 \over {4 + 1} \right)^{1 \over {1-0.4} } = k = 10.07937
+$$
+
 b) What is the steady-state of output per worker?
+```{r}
+y_k <- k ^ {0.4}
+y_k
+```
+
+$$
+y(k)=k^{0.4} = 2.519842
+$$
 
 c) What is the steady-state level of consumption per worker?
+```{r}
+(1-0.2) * y_k
+```
 
+$$
+sy(k)=(1-0.2)2.519842 = 2.015874
+$$
 
 2. Now assume population growth is instead -0.5 % (approximately the growth
    rate when every couple has 1.7 children), but that all other
@@ -89,11 +114,19 @@ c) What is the steady-state level of consumption per worker?
 a) What is the new steady-state output per worker? Is it higher or
 lower than with faster population growth?
 [A numerical answer and 1 sentence response is fine.]
+```{r}
+y_k <- ((20.0 / (-0.5 + 4)) ^ (1 / (1 - 0.4))) ^ 0.4
+y_k
+```
+3.196254. The new steady state output per worker is higher with a faster population growth.
 
 b) What is the new steady-state of consumption per worker? Is it
 higher or lower than with faster population growth? [A numerical
 answer and 1 sentence response is fine.]
-
+```{r}
+(1-0.2) * y_k
+```
+2.557003, which is also higher with a faster population growth.
 
 # 3. Questions with the App
 
@@ -115,12 +148,14 @@ Assume your initial parameters are the default s, n, d, alpha, d, and k values o
 a) Describe in words what happens in the short run to output. (E.g.,
    how large is the immediate increase in output?) [ 1 sentence ]
    
+   In the short run, ouput increases by around 30% as well, indicating that the increse in technology has made workers more productive. 
 
 b) Describe in words what happens in the long-run. (If the long-run
    steady state is higher than the short-term level of output right
    after the technology change, what is causing this additional
    increase?) [2 sentences]
-
+   
+   In the long run, output increase even more by a slightly higher new steady state. This indicates that the saving function also shifts upward and ahs lead to this slight increase.
    
 # 4. Growth and Inequality (skip in 2021 and later)
 
@@ -164,7 +199,7 @@ C. Declining with increases in capital
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.1 = NA
+answer1.1 = 'C'
 quiz.check(answer1.1)
 ```
 
@@ -195,7 +230,7 @@ D. Fall with increases in capital
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.2 = NA
+answer1.2 = 'B'
 quiz.check(answer1.2)
 ```
 
@@ -215,13 +250,13 @@ $\alpha * k^{\alpha-1} + 1/10.$)
 ```{r}
 k <- seq(1, 20, .1)
 alpha <- 1/3
-y.of.k <- k^alpha ### <--- MODIFY THIS LINE.
+y.of.k <- k^alpha + (k / 10) ### <--- MODIFY THIS LINE.
 ## numerical slope = rises/runs
 mp.k.numeric = diff(y.of.k)/diff(k)
 plot(k[-1], mp.k.numeric)
 ## analytic derivative, taking derivatitive of k^alpha with respect to k.
 ## (don't worry about this if you haven't had calculus)
-mp.k.analytic = alpha * k^(alpha - 1) ### <--- MODIFY THIS LINE, TOO!
+mp.k.analytic = alpha * k^(alpha - 1) + 0.1 ### <--- MODIFY THIS LINE, TOO!
 lines(k, mp.k.analytic, col = "red", lwd = 2)
 ## you should see that they match quite well
 ```
@@ -232,7 +267,7 @@ B. No, it is no longer declining
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer2.1 = NA
+answer2.1 = 'A'
 quiz.check(answer2.1)
 ```
 
@@ -259,7 +294,7 @@ D. Fall with increases in capital
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer2.2 = NA
+answer2.2 = 'A'
 quiz.check(answer2.2)
 ```
 
@@ -281,7 +316,8 @@ browseURL("https://gradescope.com/courses/352627")
    Is this a plausible goal for a society? (Hint:you don't need
    calculus for this problem. Try thinking about it with a diagram.)
    [1 or 2 sentences is enough here.]
-
+   
+   A low population growth (negative growth) would maximize income per capita. Specifically, a negative growth rate that is larger than the deprecation rate would make the intersection between saving curve and $(n + d)k$ curve as far as possible. Obviously, a negative growth rate is not a plausible goal for society.
 
 ## Robots and depreciation? (skip this year)
 
@@ -313,10 +349,14 @@ which in a more realistic model could be important.)
    capital/labor ratio unchanged. What would happen to per capita
    income in the short and long-run? (Hint: think about the time path
    of $k$) [Answer in a sentence or two.]
+   
+   There would be no change in both the short and the long run, as immigrants bring in capital with them making capital and labor ratio unchanged.
 
 8. Allow a one-time wave of penniless immigrants who bring no capital
    at all. What would happen to per capita income in the short and
    long run? (Hint: think about the time path of $k$). [Answer in a
    sentence or two.]
+   
+   In the short run, there will be a decrease in per capita, as new immigrants are a crutch to the economy with no captial. But in the long run, it will eventually stabilize back to steady state of the original per capita income. 
 
 Congratulations! You are finished with Lab 3.
