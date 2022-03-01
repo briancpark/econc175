@@ -1,6 +1,10 @@
 ---
-title: "Econ/Demog C175 Lab 4: The Bet -- Over and over again"
-output: html_notebook
+title: 'Econ/Demog C175 Lab 4: The Bet -- Over and over again'
+output:
+  html_notebook: default
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 
@@ -71,7 +75,7 @@ D.  Zinc cost 10.51 percent more in *real* terms in 1904 than in 1900
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.1 = NA
+answer1.1 = "D"
 quiz.check(answer1.1)
 ```
 
@@ -88,7 +92,7 @@ D.  As a precious metal for storing value
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.2 = NA
+answer1.2 = "B"
 quiz.check(answer1.2)
 ```
 
@@ -128,7 +132,7 @@ D. Very volatile, with a clear upward trend
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer2.1 = NA
+answer2.1 = "C"
 quiz.check(answer2.1)
 ```
 
@@ -190,7 +194,7 @@ reality we see and thus is a subject worth of study.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer2.2 = NA
+answer2.2 = "C"
 quiz.check(answer2.2)
 ```
 
@@ -203,6 +207,10 @@ Plot the price of tin. You can use the same code we used for Chromium, modifying
 ```{r}
 ## put your code for Tin here
 ## (Hint: you can copy and modify the commands we used for Chromium)
+commod["1963", "Tin"]
+year.vec <- rownames(commod)
+plot(year.vec, commod$Tin, type = "l")
+abline(v = 1980)    
 ```
 
 Q2.3 Why do you think Ehrlich chose Tin as one of his commodities to bet on?
@@ -217,7 +225,7 @@ D.  There was evidence that the tin mines were running out of ore
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer2.3 = NA
+answer2.3 = "B"
 quiz.check(answer2.3)
 ```
 
@@ -248,7 +256,7 @@ C. Neither, because the value of the basket doesn't tell us if
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer3.1 = NA
+answer3.1 = "B"
 quiz.check(answer3.1)
 ```
 
@@ -304,7 +312,7 @@ D. About 100 dollars
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer3.2 = NA
+answer3.2 = "A"
 quiz.check(answer3.2)
 ```
 
@@ -329,7 +337,7 @@ for (i in 1:7)   ## the variable "i" takes the value 1, 2, 3, ...
 {
     ## anything in between {} is done once
     ## for each value that "i" takes
-    print(c("iteration", i))
+    print(c("iteration", i)) 
 }
 ```
 
@@ -382,7 +390,7 @@ B. About 58 percent
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer4.1 = NA
+answer4.1 = "B"
 quiz.check(answer4.1)
 ```
 
@@ -434,6 +442,8 @@ Well done. You are finished with the computing portion of Lab 4.
 > 1. What relationship did Ehrlich expect to hold between commodity
 >    prices and population growth?
 
+Ehrlich was worried that the rapid population growth could lead to resource starvation. Due to that, he was worried that inflation would be a problem.
+
 > 2. Who won the bet in 1990? Given our analysis of other time
 >    periods, would you say that the winner was “lucky” or “right”, or
 >    both?  [Explain your answer in 50 to 100 words.]
@@ -442,12 +452,18 @@ Well done. You are finished with the computing portion of Lab 4.
 > what you found. Whether what you find is conclusive or inconclusive,
 > you can still get full credit by reporting whatever you found.
 
+Simon won the bet in 1990. Simon was lucky, because according to the statistics
+Ehrlich had a 57.55% chance of winning from 1900 to 2000s. 
+
 > 3. Choose another easily substitutable commodity from the
 >    database. Conduct the analysis of its price as the previous part
 >    of the lab and answer the following questions.
 
 > 3.1) Why do you think this commodity would be easily substitutable,
 >      explaining what “service” it provides with 1 or 2 sentences.
+
+Beef, as it provides a source of protein. If beef is scarse, then it can be easily replaced with other proteins
+such as chicken or pork. Newer advancements in food technology has allowed for plant based substitution.
 
 > 3.2) Attach a plot of the change of prices (“bet.result”) of the
 >      chosen commodity. 
@@ -465,14 +481,49 @@ Well done. You are finished with the computing portion of Lab 4.
 > to the graph indicating the commodity you choose adding ‘main =
 > “commodity name”’ to the syntax.
 
+
+
+```{r}
+brian.basket.vec <- c("Beef")
+start.vec <- 1900:2005        ## a vector of years to start the bet
+bet.result.vec <- rep(NA, length(start.vec)) ## an empty vector to be
+                                             ## used to store the
+                                             ## results
+names(bet.result.vec) <- start.vec ## labeling the elements (you can ignore)
+for (i in 1:length(start.vec))
+{
+    bet.result.vec[i] <- bet.fun(start = start.vec[i],
+                                 end = start.vec[i] + 10,
+                                 basket.vec = brian.basket.vec,
+                                 data = commod)
+}
+
+plot(start.vec, bet.result.vec, type = "n") #an empty plot
+abline(h = 0)
+e <- which(winners.vec == "ehrlich")    # T or F, to subset text()
+s <- which(winners.vec == "simon")
+text(x = start.vec[e], y = bet.result.vec[e], labels = "e", col = "blue")
+text(x = start.vec[s], y = bet.result.vec[s], labels = "s", col = "red")
+text(1960, 1500, "Ehrlich wins", col = "blue")
+text(1960, -250, "Simon wins", col = "red")
+```
+
 > 4. Choose a commodity from the database which you think would be
 >    hard to substitute for. And explain why you think this commodity
 >    would NOT be easily substituted, explaining what “service” it
 >    provides. (In 1 or 2 sentences) [Note: you don't need to analyze
 >    the data for this problem.]
 
+Iron is a commodity that is probably hard to substitute for. It's one of the strongest metals used for
+construction. Without iron, we could probably not make the most sustainable and sturdiest buildings, such
+as workplaces or housing, which is the service it provides.
+
 > 5. What are two reasons prices might not reflect the long-term
 >    availability of a commodity? [A sentence on each.]
+
+One might be due to a trend in consumer products, maybe a product or commodity has gone viral and has increased suddenly.
+Another might be due to epidemic or natural disasters, where examples include panic buying from COVID-19 or grocery stock shortages
+during natural disasters.
 
 > 6. For the following questions,  use the "app" available
 >    http://shiny.demog.berkeley.edu/josh/harvest/ to gather data on
@@ -484,23 +535,34 @@ Well done. You are finished with the computing portion of Lab 4.
 >     yields even when harvest rate is unsustainable. How can you 
 >     inspect the graphs to check on sustainability?
 
+You can manually inspect the graph by observing that the point where the green curve intersects the red curves. When the red curve is above the green curve, this shouldn't be sustainable.
+
 > 6.2 When h = 0.01, the sustainable yield is 0.0678, what is the
 >     sustainable yield when h = 0.02 and h = 0.04? 
 
+When h = 0.02, the sustainable yield is 0.108; h = 0.04, the sustainability yield is 0 (this is unsustainable due to the bug).
+
 > 6.3 What harvest rate maximizes the sustainable yield? [Hint: try
 >     all of the slider values]
+
+At h=0.022, the sustainable yield is maximized.
 
 > 6.4 What harvest rate maximizes the yield during the first year of
 >     harvesting (this is about year 10 on the slider, or year 0 on
 >     the time axes of the graph)? (You can either report the value
 >     you find with the "app" or your theoretical answer)
 
+With the app, the answer is h=0.15. But assuming it can go higher, 1 would be the theoretical peak.
+
 > 6.5 Would harvest rates be higher in year "1" if we harvested at the
 >     sustainable rate found in part 6.3, or if they were .02 higher
 >     than the sustainable rate? 
 
+The sustainable yield would be higher at h = 0.024. But we would get diminishing returns in the long run. 
+
 > 6.6 When Becker advocates for attention to sustainability, how did
 >     Lam reply to his warning? (In 1 or 2 sentences).
 
+Lam replies that instead of attention to sustainability, we need better institutions to manage the sustainability, such as functioning markets. 
 
 Congratulations! You are finished with Lab 4.
