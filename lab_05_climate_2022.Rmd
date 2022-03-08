@@ -1,10 +1,10 @@
 ---
 title: 'Econ/Demog C175 Lab 5: Population and Climate Modeling'
 output:
+  pdf_document: default
+  html_notebook: default
   html_document:
     df_print: paged
-  html_notebook: default
-  pdf_document: default
 editor_options:
   chunk_output_type: inline
 ---
@@ -138,7 +138,7 @@ adapt, which we no longer really have. But in theory we could update
 all of the initial conditions ...)
 
 ```{r}
-library(data.table) # if you're working on this using the RStudio desktop version, make sure to install this when the app prompts you to - the last line under the Jobs tab should be "✔ Package 'data.table' successfully installed."
+library(data.table) # if you're working on this using the RStudio desktop version, make sure to install this when the app prompts you to - the last line under the Jobs tab should be " Package 'data.table' successfully installed."
 solow_climate_fun <- function(gL0 = 0.022547, dL = -0.052,
                               gsigma0 = -.01, dsigma = -.0002)
 {
@@ -570,19 +570,47 @@ Here are the take-away lessons I got from writing this lab:
 Recall that in equilibrium, the "birth and death of capital lines"
 cross so that 
 $$
-(n + d) k = s y = s k^a 
+(n + d) k = s y = s k^a
 $$
 
 a) Use some algebra to solve for equilibrium value of k.
 
+The equilibrium value for $k$ can be solved by:
+
+$$
+(n+d)k=sk^a \\
+n+d=sk^{a - 1} \\
+\frac{n+d}{s}=k^{a - 1} \\
+\frac{n+d}{s}=k^{a - 1} \\
+(\frac{s}{n+d})^\frac{1}{1-a} = k
+$$
+
 b) Compare this to r-code for k[t] in the loop of the function. What if
    any differences to do you see? 
+
+The R code for k[t] is set to ((s*A[t]*D[t])/(d+gLt[t]))^(1/(1-a)) which is capital per person in solow steady state. The format of the equations looks similar.
+
 
 c) Let a = .3, d = .1, and s = .25. What will be the ratio of steady
    state capital per person with a population growth rate of 0.25% to that
    of a population with growth rate 0.5%? (These is roughly in line with
    the difference between the two scenarios for 2010 to 2060.) Is this
    much of a difference? (1 sentence is fine.)
+   
+  The ratio of the steady state will be:
+  
+$$
+(\frac{s}{n+d})^\frac{1}{1-a} = k \\
+(\frac{0.25}{0.0025+0.1})^\frac{1}{1-0.3} = k \\ 
+(\frac{0.25}{0.005+0.1})^\frac{1}{1-0.3} = k \\
+$$
+```{r}
+k1<- (0.25 / (0.0025 + 0.1)) ** (1 / (1 - 0.3))
+print(k1)
+k2<- (0.25 / (0.005 + 0.1)) ** (1 / (1 - 0.3))
+print(k2)
+```
+  The respective k values are 3.574094 and 3.453149 for a population growth of 0.25 and 0.5 percent. This is not much of a difference.
 
 2. Zero population growth
 
@@ -591,6 +619,18 @@ a. Simulate zero population growth by modifying the "slow" scenario
    try changing the parameters "gL" and "dL" to zero. Hint 3: you can
    check your simulation by plotting the out$L to make sure it is a
    constant.
+   
+```{r}
+out.slow.pop <- solow_climate_fun(gL0 = 0.0, ## we leave starting pop growth as is
+                  dL = 0.0, ## and multiply rate of change in growth rate by 2
+                  gsigma0 = -.01, dsigma = -.0002) # solow_climate_fun function defined earlier is now being applied here
+```
+
+```{r}
+L.slow <- out.slow.pop$L 
+plot(year, L, main = "Population")
+lines(year, L.slow)
+```
 
 b. How much warming will there be? Is this more or less than the 2 degrees
    Celsius that is considered dangerous?
@@ -599,20 +639,52 @@ b. How much warming will there be? Is this more or less than the 2 degrees
 even a sudden shift to of parents to having exactly 2 children would
 not stop population growth immediately. ]
 
+```{r}
+Temp = out$Temp
+plot(year, Temp, ylab = "Degrees, Celsius",
+     main = "Warming")
+grid(lwd = 2)
+
+Temp = out.slow.pop$Temp
+plot(year, Temp, ylab = "Degrees, Celsius",
+     main = "Warming with slow/zero")
+grid(lwd = 2)
+```
+
+The temperature has in general decreased it's maximum to a peak of 5 degrees Celsius. The difference in total is just over 5, which is more than the 2 degrees Celsius that is considered dangerous. 
+
 3. How much decarbonization is necessary?
 
 a. Try different rates of change of sigma (by varying the parameter "gsigma0") 
    until you find one that will keep world temperature rise below 2 degrees. 
    What value is enough? (Optional: a sentence on whether this numbers seems realistic). 
 
+```{r}
+out.dec.pop <- solow_climate_fun(gL0 = 0.0, ## we leave starting pop growth as is
+                  dL = 0.0, ## and multiply rate of change in growth rate by 2
+                  gsigma0 = -0.1, dsigma = -.0002) # solow_climate_fun function defined earlier is now being applied here
+
+Temp = out.dec.pop$Temp
+plot(year, Temp, ylab = "Degrees, Celsius",
+     main = "Warming with slow/zero varying gsigma0")
+grid(lwd = 2)
+```
+A gsigma of -0.1 gave a temperature difference of less than 2. gsigma is denoted as the initial decline in sigma, so considering it's a higher negative number, it seems realistic, but very optimistic.
+
+
 b. Why is Nordhaus's optimal trajectory higher than 2 degrees? A few
     sentences is fine.
+    
+Nordhaus's optimal trajectory is higher than 2 degrees as he was trying to be pragmatic and realistic about the current status of the environment, such as ice sheets melting or any other additional damage caused by natural causations. 
 
 4. There will clearly be a Tragedy of the Commons if each firm is
    allowed to make their own independent judgement about how much
    carbon to emit. According to Nordhaus, why is it not sufficient to
    let each country enforce its own carbon emissions policy on its own
    firms? [1 or 2 sentences is fine.]
+
+It is not sufficient to let each country handle it's own carbon emission policy, because it should really be a global effort. It will become an issue when property rights are poorly defined they are not compatible with other nation's prospective goals.
+
 
 
 Congratulations! You've finished Lab 5.
