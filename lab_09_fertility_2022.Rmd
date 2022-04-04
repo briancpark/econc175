@@ -1,6 +1,11 @@
 ---
-title: "Econ/Demog C175 Lab for Week 9: Micro-economic Models of Fertility and an Investigation of Historical Switzerland"
-output: html_notebook
+title: 'Econ/Demog C175 Lab for Week 9: Micro-economic Models of Fertility and an
+  Investigation of Historical Switzerland'
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document:
+    df_print: paged
 ---
 
 
@@ -281,26 +286,43 @@ the app to its starting state.)
 > If we increase the hourly wage $w'$ from $15 to $30, what happens to
 > fertility? [1 sentence with actual values.]
 
+It decreases from 2.6 to 2.2.
+
 > What happens to utility (the values of the indifference contours)?
 > [1 sentence with actual values.]
 
+It goes from 90 to 100.
+
 > What happens to consumption of goods? [1 sentence with actual values.]
+
+The consumption rises from 960 to 1320.
 
 > 2. If we increase outside income $I'$ from 1000 dollars per week to
 >    2,000 dollars per week, what happens to fertility?
 >    [1 sentence with actual values.]
 
+It increases fertility from 2.6 to 4.2.
+
 > 3. If we reduce fixed costs $p'$ from $100 per week to $50 per week, what
 >    happens to fertility? [1 sentence with actual values.]
 
+Increases from 2.6 to 3.2.
+
 > 4. If we increase the time costs per child $c'$ from 10 to 15 hours per
 >    week, what happens to fertility [1 sentence with actual values.]
+
+Decreases from 2.6 to 2.
 
 > 5. For which of the above does the direction of the effect
 >    depends on initial parameter values, and for which do you think the
 >    direction of the effect is unambiguous? (Hint: you can verify the
 >    analytical answers given in the previous section by
 >    experimentation.) [A sentence for each parameter.]
+
+* Wage: Initial values seem to be important
+* Outside Income: Unambiguous. There is a relationship between outside income and fertility, where increasing income increases fertility.
+* Fixed costs: Unambiguous. There is an inverse relationship between fixed costs and fertility. Where an increase in fixed costs causes a decrease in fertility.
+* time costs: Unambiguous. Again, there is an inverse relationship between time cost and fertility. A decrease in time cost increases fertility.
 
 > 6. Now change the initial parameter value of $c$ from 10 hours per
 >    child to 2 hours per child before increasing wages from $15 per
@@ -309,9 +331,13 @@ the app to its starting state.)
 >   What is the effect of a wage increase on fertility now?
 >   [1 sentence with actual values.]
 
+The wage increases form 4.9 to 5.5.
+
 >   Describe the relative size of the income and substitution effects
 >   that must be true for this effect to hold. [1 sentence saying which
 >   effect must dominate, no numbers needed.]
+
+The income effect mostly influences where the changes in wage and move us to a higher indifference contour with higher fertility and consumption rates.
 
 > 7. Review of concepts. For each of the following scenarios, specify
 >   how you could operationalize the scenario by changing a parameter,
@@ -325,11 +351,13 @@ the app to its starting state.)
 >    getting rid of school fees). What parameter would you change, and
 >    what effect would this have on fertility?
 
+Decrease the per child fixed costs and time costs. This would increase fertility.
 
 > B. Male income falls, but we live in a society in which only women
 >    take care of children. What parameter would you change, and what
 >    effect would this have on fertility?
 
+Decrease outside income. This would would cause a decrease in fertility.
 
 > C. Men becoming more involved in child care. One way of
 >    operationalizing is to increase $T$, the time that could be spent
@@ -337,11 +365,14 @@ the app to its starting state.)
 >    want to change? How could these changes be made in a way that had
 >    no effect on fertility?
 
+Men's outside income falls, thus an increase in total earnings would balance things out to make it so that there is no effect on fertility.
+
 > D. Infant mortality falls. If we conceptualize the costs per child as
 >    costs per surviving child, then this effectively lowers the costs of
 >    children. What parameters would you change, and what effect would
 >    these changes have on fertility?
 
+Lower fixed costs and time costs. This would increase fertility rate.
 
 # Part 2. Fertility Decline in Switzerland
 
@@ -376,7 +407,7 @@ A. True
 B. False
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.1 = NA
+answer1.1 = "B"
 quiz.check(answer1.1)
 ```
 
@@ -386,7 +417,7 @@ A. True
 B. False
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.2 = NA
+answer1.2 = "A"
 quiz.check(answer1.2)
 ```
 
@@ -395,7 +426,7 @@ A. True
 B. False
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.3 = NA
+answer1.3 = "A"
 quiz.check(answer1.3)
 ```
 
@@ -406,7 +437,7 @@ A. True
 B. False
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.4 = NA
+answer1.4 = "B"
 quiz.check(answer1.4)
 ```
 
@@ -421,7 +452,7 @@ B. 20.3
 C. 2.03
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.5 = NA
+answer1.5 = "B"
 quiz.check(answer1.5)
 ```
 
@@ -436,7 +467,7 @@ B. Bern
 C. Some very rural place
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.6 = NA
+answer1.6 = "A"
 quiz.check(answer1.6)
 ```
 
@@ -468,18 +499,22 @@ than few, "high" investment children.)
 
 > 8. Catholic
 
+This could limit the fertility rate and potentially decrease it, due to the strong belief of having no children/sex before marriage. This would increase the price per child, and we would expect lower fertility.
 
 > 9. Education
 > (Hint: distinguish between the effects of parents being more
 > educated, and parents providing more education for their children).
 
+Higher education typically means higher wages. This would reduce the cost of child. Thus, it means a lower fertility rate. 
 
 > 10. Examination
 
+Higher exam score may indicate that the region is well educated and well funded. By similar reasoning of 9, we should predict a lower fertility rate. 
 
 > 11. Agriculture
 >
 
+This is labor intensive, so it doesn't require much education. This means an increase in cost of child and higher level of food production, thus we would expect higher fertility rate. 
 
 # 3. Analysis
 
@@ -502,7 +537,7 @@ C. No clear pattern in fertility
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer3.1 = NA
+answer3.1 = "A"
 quiz.check(answer3.1)
 ```
 
@@ -511,6 +546,8 @@ quiz.check(answer3.1)
 
 ```{r}
 ## Cut and paste and adapt the code for Infant.Mortality above
+plot(Agriculture ~ Infant.Mortality, data = swiss)
+abline(lm(Agriculture ~ Infant.Mortality, data = swiss), lty = 2)
 ```
 
 Q3.2 Higher proportions working in agriculture are associated with
@@ -521,7 +558,7 @@ C. No clear pattern in fertility
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer3.2 = NA
+answer3.2 = "A"
 quiz.check(answer3.2)
 ```
 
@@ -530,6 +567,8 @@ quiz.check(answer3.2)
 
 ```{r}
 ## Cut and paste and adapt the code for Infant.Mortality above
+plot(Examination ~ Infant.Mortality, data = swiss)
+abline(lm(Examination ~ Infant.Mortality, data = swiss), lty = 2)
 ```
 
 Q3.3 Higher examination scores are associated with
@@ -540,7 +579,7 @@ C. No clear pattern in fertility
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer3.3 = NA
+answer3.3 = "B"
 quiz.check(answer3.3)
 ```
 
@@ -549,6 +588,8 @@ quiz.check(answer3.3)
 
 ```{r}
 ## Cut and paste and adapt the code above for Infant.Mortality above
+plot(Education ~ Infant.Mortality, data = swiss)
+abline(lm(Education ~ Infant.Mortality, data = swiss), lty = 2)
 ```
 
 Q3.4 More education is associated with
@@ -559,7 +600,7 @@ C. No clear pattern in fertility
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer3.4 = NA
+answer3.4 = "B"
 quiz.check(answer3.4)
 ```
 
@@ -569,6 +610,8 @@ quiz.check(answer3.4)
 
 ```{r}
 ## Cut and paste and adapt the code above for Infant.Mortality above
+plot(Catholic ~ Infant.Mortality, data = swiss)
+abline(lm(Catholic ~ Infant.Mortality, data = swiss), lty = 2)
 ```
 
 Q3.5 More Catholic provinces tend to have
@@ -580,7 +623,7 @@ C. No clear pattern in fertility
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer3.5 = NA
+answer3.5 = "A"
 quiz.check(answer3.5)
 ```
 
@@ -593,6 +636,8 @@ quiz.check(answer3.5)
 > our micro-economic models and your own ideas) and which features (if
 > any) were inconsistent. Feel free to provide any further
 > interpretation.
+
+My analysis and predictions were pretty close with the empirical data. Only the Catholic affiliation was inconsistent. But that may be due to the inconsistencies of the data as it looks like there might be missing values or not enoughd data points.
 
 
 Congratulations! You have completed the lab for week 9.
