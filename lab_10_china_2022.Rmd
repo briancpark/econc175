@@ -1,6 +1,8 @@
 ---
 title: "Chinese Fertility, Sex-ratios, and the 1-child Policy"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 # Chinese Fertility, Sex-Ratios and the 1-child policy
 
@@ -127,7 +129,7 @@ living in their household.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer0.1 = NA
+answer0.1 = "D"
 quiz.check(answer0.1)
 ```
 ```{r}
@@ -215,7 +217,7 @@ after the 1-CP.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer0.2 = NA
+answer0.2 = "B"
 quiz.check(answer0.2)
 ```
 
@@ -276,7 +278,7 @@ before and after the 1 child policy.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer0.3 = NA
+answer0.3 = "E"
 quiz.check(answer0.3)
 ```
 
@@ -321,7 +323,7 @@ D. It falls from 1st to 2nd births, but rises for 3rd births.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer0.4 = NA
+answer0.4 = "B"
 quiz.check(answer0.4)
 ```
 
@@ -483,6 +485,8 @@ ppr2.mm.vec
 ```{r}
 ppr2.ff.vec <- NULL
 ppr2.fm.vec <- NULL
+ppr2.mf.vec <- NULL
+ppr2.mm.vec <- NULL
 ## insert additional code here
 for (i in 1:length(age.vec))
 {
@@ -497,12 +501,25 @@ for (i in 1:length(age.vec))
                                               !is.na(sex2) & # see note1
                                               age2 == this.age],
                                         parity = 2)
+    ppr2.mf.vec[i] <- get.ppr.by.parity(nkids[sex1 == "m" &
+                                              sex2 == "f" &
+                                              !is.na(sex2) & # see note1
+                                              age2 == this.age],
+                                        parity = 2)
+    ppr2.mm.vec[i] <- get.ppr.by.parity(nkids[sex1 == "m" &
+                                              sex2 == "m" &
+                                              !is.na(sex2) & # see note1
+                                              age2 == this.age],
+                                        parity = 2)
     ## insert additional code here
 }
 
 plot(age.vec, ppr2.ff.vec, col = "pink", lty = 1, type = "l",
      ylim = c(0, 1))
 lines(age.vec, ppr2.fm.vec, col = "pink", lty = 2)
+
+lines(age.vec, ppr2.mf.vec, col ="blue", lty = 2)
+lines(age.vec, ppr2.mm.vec, col ="blue", lty = 1)
 ## insert additional code here
 ```
 
@@ -529,8 +546,13 @@ ppr2.mm.vec:  ' col ="blue", lty = 1 '  (solid blue)
 >    least 1 boy and 1 girl. B. They prefer at least 1 boy. C. They
 >    prefer at least 1 girl. [Choose the best answer and explain < 50 words]
 
+They prefer at least 1 boy. We see that parents with two females have higher parity progression ratio. It seems to imply that they are willing ot have a third child to get a boy. After all, it is the male who carries out the family name in Chinese culture.
+
+
 > 5. Does the analysis of 3rd births reinforce or contradict our analysis
 >    of 2nd births? [< 50 words]
+
+No, not really. It actually reinforces it. The parity progression ratio is higher in general if the birth is given to a female. This leads to another attempt for a male, but then a female. Then another attempt for a male that leads to a 3rd birth. 
 
 > Congratulations. You've finished the graded portion of the lab on
 > China.
