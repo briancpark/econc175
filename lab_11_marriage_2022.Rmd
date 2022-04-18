@@ -1,6 +1,10 @@
 ---
-title: "Econ/Demog C175 Lab 11: Marriage -- Do Opposites Attract, or Do Likes Like Likes?"
-output: html_notebook
+title: 'Econ/Demog C175 Lab 11: Marriage -- Do Opposites Attract, or Do Likes Like
+  Likes?'
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 In this lab we will look at patterns of intermarriage among
@@ -112,7 +116,7 @@ similar.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.1 = NA
+answer1.1 = "C"
 quiz.check(answer1.1)
 ```
 
@@ -173,7 +177,7 @@ D. 30 / 40
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.2 = NA
+answer1.2 = "A"
 quiz.check(answer1.2)
 ```
 
@@ -214,7 +218,7 @@ this because the odds ratio is much less than 1.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.3 = NA
+answer1.3 = "C"
 quiz.check(answer1.3)
 ```
 
@@ -272,7 +276,7 @@ B. Disagree
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.4 = NA
+answer1.4 = "A"
 quiz.check(answer1.4)
 ```
 
@@ -443,6 +447,7 @@ divides for same-sex couples.
    data analysis and to prevent you from coming up with a purely post
    hoc explanation after you've seen the result.)
 
+I expect them to be more like each other. There is tradeoffs in sex and gender roles, so I feel like you'll see more similarities between the same sex.
 
 1. Replicate our analysis of opposite-sex marriages for same-sex
    marriages. Complete the (5) cells marked "X" in the following
@@ -453,11 +458,11 @@ Characteristic|  Opposite-sex | Same-sex    | Opposite-sex | Same-sex
 Measure       | odds ratio    | odds ratio  | correlation  | correlation
 --------------|---------------|-------------|--------------|---------
 Education     | 11.4          | 6.7         |              |
-Age           |               |             | 0.86         | X
-Wage Income   |               |             | 0.03         | X
-Race ("w","b")| 531           | X           |              |
-Race ("w","a")| 218           | X           |              |
-Race ("a","b")| 2354          | X           |              |
+Age           |               |             | 0.86         | 0.73
+Wage Income   |               |             | 0.03         | 0.12
+Race ("w","b")| 531           | 17          |              |
+Race ("w","a")| 218           | 38          |              |
+Race ("a","b")| 2354          | inf         |              |
 
 
 2. How does positive sorting differ for same-sex spouses, compared to
@@ -466,6 +471,11 @@ Race ("a","b")| 2354          | X           |              |
    education than do opposite-sex
    marriages."). [Describe the remaining 5 relationships in a sentence each.]
 
+* The infinity odds ration for Asian and Black for same sex marriage sort much more twards race than oppposite sex marriage, meaning that it is near impossible for same sex marriage to happen in same sex compared to opposite sex.
+* The smaller odds ratio for White and Asian mean that same sex marriage sort less positively than opposite sex, meaning you'll see more White and Asian same sex marriage than white-asian opposite sex marriage.
+* White and Black mean that same sex marraiges sort less positively on same sex marraige, thus, same effect as above.
+* For wage income, there is higher correlation for same sex marriage, but since it's still near 0, there is no positive or negative relationship
+* For age, there is higher correlation in general, but same sex has lower correlation. This means it is less likely for same sex marraige to be around the same age compared to opposite sex. 
 
 3. Describe a potential explanation for the pattern of your results.
    Try to use the words "complementarity" and "comparative advantage"
@@ -474,6 +484,7 @@ Race ("a","b")| 2354          | X           |              |
    here. Just make sure your explanation is consistent with your
    evidence.) [ < 75 words]
 
+It seems like the data and analysis shows that the relationship of opposite sexes seems to be more complimentary for each other compared to same sex. The preference for same gender, age and education is apparent in opposite sex, but wage seems to indication that there was no comparative advantage and was not a strong factor in determining which role served better. 
 
 4.  We didn't distinguish same-sex *male* couples from same-sex
     *female* couples. If we did, which would you expect to have a less
@@ -482,6 +493,7 @@ Race ("a","b")| 2354          | X           |              |
     you don't need to calculate anything, just explain your
     logic. There is no single right answer.)
 
+I would expect same sex male couples to have less positive correlation in wage income. This is because of today's wage gap in men and women. 
 
 5.  Let's extend the example we did in class (on about slide 20 of the
 lecture on assortative pairing). Let the payoffs have the form
@@ -498,15 +510,19 @@ characteristic, as we can see from the assignments made above.
 a) Fill in missing cells of the $3 \times 3$ matrix of payoffs.
 
 	   M1    M2    M3
-F1  1.26
-F2
-F3
+F1  1.26  4.02. 5.01
+F2  4.02  5.04  5.74
+F3  5.01  5.74  6.30
 
 b) What would be the optimal sorting? (Hint: choose the sorting
 that maximizes the sum of the payoff of all three marriages.) Is this
 an example of "like marrying like," or is this an example of
 "opposites attracting"?
 
+M1F3 5.01 
+M2F1 4.02 
+M3F2 5.74
+Sum 14.77
 
 c) Tell a story of why the marriage pattern might look this way if the
 characteristic were "college major". (For example, if the example
@@ -514,5 +530,8 @@ showed likes marrying likes, then you would want to give a reason why
 a marriage of people from the same college major would have a higher
 "payoff" than from different majors). Please limit your answer to a
 few sentences.
+
+Marriage pattern might look this we if the characteristic was a college major as people with the same or similar major will often talk about academia or industry, thus they'll often collaborate together and get a higher payoff. Different majors will have a lower payoff as you'll often have passions or ideas that could be completely orthogonal to each other and don't compliment each other.
+
 
 > Congratulations! You are finished with Lab 10.
