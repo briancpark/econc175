@@ -1,7 +1,9 @@
 ---
-title: "Lab_11_Mariel: Labor Market Effects of the Mariel Boatlift"
-output: html_notebook
-editor_options: 
+title: 'Lab_11_Mariel: Labor Market Effects of the Mariel Boatlift'
+output:
+  pdf_document: default
+  html_notebook: default
+editor_options:
   chunk_output_type: inline
 ---
 
@@ -105,7 +107,7 @@ D. Cuban, Hispanic, non-Hispanic?
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.1 = NA
+answer1.1 = "C"
 quiz.check(answer1.1)
 ```
 
@@ -118,7 +120,7 @@ D. Nominal dollars per hour (not adjusting for inflation)
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.2 = NA
+answer1.2 = "C"
 quiz.check(answer1.2)
 ```
 
@@ -131,7 +133,7 @@ D. Cities that also received a lot of Cuban immigrants.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.3 = NA
+answer1.3 = "C"
 quiz.check(answer1.3)
 ```
 
@@ -286,7 +288,7 @@ C. Because there are many Cubans in the comparison cities and it would be confus
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.4 = NA
+answer1.4 = "B"
 quiz.check(answer1.4)
 ```
 
@@ -304,7 +306,7 @@ didn't have the the sudden Cuban migration.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.5 = NA
+answer1.5 = "B"
 quiz.check(answer1.5)
 ```
 
@@ -322,7 +324,7 @@ C. We can’t tell just by looking, but one could in theory (and with
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.6 = NA
+answer1.6 = "C"
 quiz.check(answer1.6)
 ```
 
@@ -339,7 +341,7 @@ D. All of the above.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.7 = NA
+answer1.7 = "C"
 quiz.check(answer1.7)
 ```
 
@@ -443,7 +445,7 @@ C. An uptick after 1980 because we are working with logarithms.
 
 ```{r}
 ##  "Replace the NA with your answer (e.g., 'A' in quotes)"
-answer1.8 = NA
+answer1.8 = "A"
 quiz.check(answer1.8)
 ```
 
@@ -490,6 +492,8 @@ print("Unemployment in Miami")
 > with a large effect of immigration on the least educated? (Three
 > sentences are fine here).
 
+Unemployment rate decreased from 3.8 to 3.1 from 1980 to 1982. With least education, increases from 8.5 to 16.4. The increase in this case is dramatic. This is consistent with a large effect of immigration on the least educated since most incoming immigrants were not highly educated, having an effect on the natives as well.
+
 > Graded Question 2. Modify the following chunk of code and calculate
 > the same table for the comparison cities. Does this change your
 > answer about the effect of the boatlift? (< 50 words).
@@ -497,7 +501,7 @@ print("Unemployment in Miami")
 ```{r}
 ## not miami 
 ## Hint: you need to change the code defining "s" below so that it specifies the comparison cities. Examples of how to do this are found in our earlier analysis.
-s <- age %in% 16:61 & smsarank == "Miami"
+s <- age %in% 16:61 & smsarank != "Miami"
 ue.educ.table.notmiami <- tapply(X = esr[s],
                          FUN = get.ue,
                          INDEX = list(educ[s], year[s]))
@@ -505,8 +509,7 @@ print("Unemployment in Comparison Cities, not Miami")
 (ue.educ.table.notmiami.pretty <- round(100*ue.educ.table.notmiami,1))
 
 ```
-
-
+Yes, it changes my answer about the boatlift. Now, there is still an increase in least education on comparison cities for least educated people. This means that immigration is not the sole effect of the unemployment. 
 
 > Graded Question 3. Plot the results of your educational
 > comparison. Copy your image as the answer.
@@ -557,5 +560,6 @@ ue.plot.fun(my.index = "lessHS", miami.table = ue.educ.table.miami,
 > that having immigrants would benefit the native-born workers? (< 50
 > words)
 
+One reason is that immigrants may bring in new technology or innovation, which will help natives become more productive and efficient. There is also an increasse supply of labor as more immigrants come, thus more oppurtunity and economoy expansion.
 
 Congratulations: You have finished the lab 11!
